@@ -1,14 +1,16 @@
 package {{packageName}}.infrastructure
 
-import com.squareup.moshi.KotlinJsonAdapterFactory
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Rfc3339DateJsonAdapter
+import com.google.gson
 import java.util.*
 
 object Serializer {
     @JvmStatic
+    val gson = Gson()
+
+/*
     val moshi: Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
             .build()
+*/
 }

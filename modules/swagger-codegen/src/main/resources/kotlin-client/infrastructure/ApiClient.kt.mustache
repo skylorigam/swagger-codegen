@@ -52,7 +52,7 @@ open class ApiClient(val baseUrl: String) {
             return requestBodyBuilder.build()
         }  else if(mediaType == JsonMediaType) {
             return RequestBody.create(
-                    MediaType.parse(mediaType), Serializer.moshi.adapter(T::class.java).toJson(content)
+                    MediaType.parse(mediaType), Serializer.gson.toJson(content)
             )
         } else if (mediaType == XmlMediaType) {
             TODO("xml not currently supported.")
@@ -78,7 +78,7 @@ open class ApiClient(val baseUrl: String) {
         }
 
 		if(isJsonMime(contentType)){
-            return Serializer.moshi.adapter(T::class.java).fromJson(response.body()?.source())
+            return Serializer.gson.fromJson(response.body()?.source(), T::class.java)
         } else if(contentType.equals(String.javaClass)){
             return response.body().toString() as T
         } else {
