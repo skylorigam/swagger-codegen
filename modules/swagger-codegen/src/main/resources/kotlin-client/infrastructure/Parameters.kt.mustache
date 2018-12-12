@@ -1,0 +1,36 @@
+//AUTO GENERATED FILE BY SWAGGER CODEGEN - DO NOT EDIT
+package {{packageName}}.infrastructure
+
+
+abstract class BaseParams {
+    var params = listOf<String>()
+
+    constructor(params: List<String>) {
+        this.params = params
+    }
+
+    constructor(vararg params: String) {
+        this.params = params.toList()
+    }
+}
+
+
+class CSVParams : BaseParams() {
+    override fun toString() = params.joinToString(",")
+}
+
+
+class SSVParams : BaseParams() {
+    override fun toString() = params.joinToString(" ")
+}
+
+
+class TSVParams : BaseParams() {
+    override fun toString() = params.joinToString("\t")
+}
+
+class PIPESParams : BaseParams() {
+    override fun toString() = params.joinToString("|")
+}
+
+
