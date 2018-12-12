@@ -1,5 +1,7 @@
+//AUTO GENERATED FILE BY SWAGGER CODEGEN - DO NOT EDIT
 package {{package}}
 
+import it.sky.msa.sdk.codegenSupport.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
@@ -10,13 +12,6 @@ import okhttp3.MultipartBody
 
 {{#imports}}import {{import}}
 {{/imports}}
-
-{{^fullJavaUtil}}
-import java.util.ArrayList
-import java.util.HashMap
-import java.util.List
-import java.util.Map
-{{/fullJavaUtil}}
 
 {{#operations}}
 interface {{classname}} {
