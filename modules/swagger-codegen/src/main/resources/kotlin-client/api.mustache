@@ -1,14 +1,10 @@
 //AUTO GENERATED FILE BY SWAGGER CODEGEN - DO NOT EDIT
 package {{package}}
 
-import it.sky.msa.sdk.codegenSupport.*
-import io.reactivex.Completable
-import io.reactivex.Single
-import retrofit2.http.*
 
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import okhttp3.MultipartBody
+import io.reactivex.*
+import it.sky.msa.sdk.codegenSupport.*
+import retrofit2.http.*
 
 {{#imports}}import {{import}}
 {{/imports}}
@@ -22,7 +18,7 @@ interface {{classname}} {
 {{#allParams}}
    * @param {{paramName}} {{description}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
 {{/allParams}}
-   * @return {{#returnType}}Single&lt;{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{/isResponseFile}}&gt;{{/returnType}}{{^returnType}}Completable{{/returnType}}
+   * @return {{#returnType}}Single<{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{/isResponseFile}}>{{/returnType}}{{^returnType}}Completable{{/returnType}}
 {{#isDeprecated}}
    * @deprecated
 {{/isDeprecated}}
@@ -33,7 +29,7 @@ interface {{classname}} {
    */
   {{#formParams}}
   {{#-first}}
-  {{#isMultipart}}@retrofit2.http.Multipart{{/isMultipart}}{{^isMultipart}}@retrofit2.http.FormUrlEncoded{{/isMultipart}}
+  {{#isMultipart}}@Multipart{{/isMultipart}}{{^isMultipart}}@FormUrlEncoded{{/isMultipart}}
   {{/-first}}
   {{/formParams}}
   {{^formParams}}
@@ -47,8 +43,9 @@ interface {{classname}} {
   {{/formParams}}
   @{{httpMethod}}("{{{path}}}")
   fun {{operationId}}({{^allParams}}){{/allParams}}
-    {{#allParams}}{{>libraries/retrofit2/queryParams}}{{>libraries/retrofit2/pathParams}}{{>libraries/retrofit2/headerParams}}{{>libraries/retrofit2/bodyParams}}{{>libraries/retrofit2/formParams}}{{#hasMore}}, {{/hasMore}}{{^hasMore}}
-  ){{/hasMore}}{{/allParams}} : {{#returnType}}Single<{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}>{{/returnType}}{{^returnType}}Completable{{/returnType}}
+    {{#allParams}}{{>libraries/retrofit2/queryParams}}{{>libraries/retrofit2/pathParams}}{{>libraries/retrofit2/headerParams}}{{>libraries/retrofit2/bodyParams}}{{>libraries/retrofit2/formParams}}{{#hasMore}},
+    {{/hasMore}}{{^hasMore}}
+    ){{/hasMore}}{{/allParams}} : {{#returnType}}Single<{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}>{{/returnType}}{{^returnType}}Completable{{/returnType}}
 
   {{/operation}}
 }
