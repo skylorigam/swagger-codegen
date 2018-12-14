@@ -266,7 +266,7 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
             Property inner = mp.getAdditionalProperties();
 
             // Maps will be keyed only by primitive Kotlin string
-            return getSwaggerType(p) + "<kotlin.String, " + getTypeDeclaration(inner) + ">";
+            return getSwaggerType(p) + "<String, " + getTypeDeclaration(inner) + ">";
         }
         return super.getTypeDeclaration(p);
     }
@@ -440,8 +440,13 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
      */
     @Override
     public String toModelName(final String name) {
-        // Allow for explicitly configured kotlin.* and java.* types
-        if (name.startsWith("kotlin.") || name.startsWith("java.")) {
+
+        if (name.startsWith("kotlin.")) {
+            return name.replaceAll("kotlin.", "").replaceAll("collections.", "");
+        }
+
+        // Allow for explicitly configured java.* types
+        if (name.startsWith("java.")) {
             return name;
         }
 
@@ -478,7 +483,7 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
     private String getArrayTypeDeclaration(ArrayProperty arr) {
         // TODO: collection type here should be fully qualified namespace to avoid model conflicts
         // This supports arrays of arrays.
-        String arrayType = typeMapping.get("array");
+        String arrayType = toModelName(typeMapping.get("array"));
         StringBuilder instantiationType = new StringBuilder(arrayType);
         Property items = arr.getItems();
         String nestedType = getTypeDeclaration(items);
@@ -535,7 +540,7 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
     @Override
     protected boolean needToImport(String type) {
         // provides extra protection against improperly trying to import language primitives and java types
-        boolean imports = !type.startsWith("kotlin.") && !type.startsWith("java.") && !defaultIncludes.contains(type) && !languageSpecificPrimitives.contains(type);
+        boolean imports =  !languageSpecificPrimitives.contains("kotlin." + type) && !languageSpecificPrimitives.contains("kotlin.collections." + type) && !type.startsWith("kotlin.") && !type.startsWith("java.") && !defaultIncludes.contains(type) && !languageSpecificPrimitives.contains(type);
         return imports;
     }
 }
